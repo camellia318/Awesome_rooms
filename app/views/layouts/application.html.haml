@@ -16,7 +16,7 @@
             %li= link_to "Home", root_path
             %li= link_to "ルーム登録", new_room_path
             %li= link_to "アカウント作成", signup_path
-            %li= link_to "予約履歴", reservations_path
+            %li= link_to "予約情報", reservations_path
             - if logged_in?
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
@@ -33,4 +33,4 @@
     - flash.each do |message_type, message|
       = content_tag(:div, message, class: "alert alert-#{message_type}")
     = yield
-    = debug(params) if Rails.env.development?
+    -#= debug(params) if Rails.env.development?

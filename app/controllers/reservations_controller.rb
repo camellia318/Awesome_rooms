@@ -27,11 +27,11 @@ class ReservationsController < ApplicationController
     redirect_to room_path(params[:room_id]), notice: "この予約をキャンセルしました"
   end  
   
-  
   private
   
   def total_price
   end
+  
   
   def reservation_params
     params.require(:reservation).permit(:start_date, :end_date, :person
