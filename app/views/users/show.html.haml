@@ -1,0 +1,22 @@
+- provide(:title, @user.name)
+.row
+  .col-8
+    %section.user_info
+      .card.mb-2
+        %h5.card-header ユーザー名
+        .card-body
+          %p.card-text= @user.name
+      .card.mb-2
+        %h5.card-header メールアドレス
+        .card-body
+          %p.card-text= @user.email
+      .card.mb-2
+        %h5.card-header 自己紹介
+        .card-body
+          %p.card-text= @user.introduction
+      .card.mb-2
+        -if @user.image.attached?
+          %h5.card-header アイコン
+          .card-body
+            %p.card-text= image_tag @user.image, class: "user-img rounded-circle", width: 100, height: 100
+  

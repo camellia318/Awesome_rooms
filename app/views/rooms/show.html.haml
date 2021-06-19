@@ -1,0 +1,64 @@
+- now = Time.zone.now
+
+%h1.mt-3.mb-3= @room.name
+.row
+  .col-8
+    .card.mb-2
+      %h5.card-header ルーム詳細
+      .card-body
+        %p.card-text= @room.description
+    .card.mb-2
+      %h5.card-header エリア
+      .card-body
+        %p.card-text= @room.adress
+    .card.mb-2
+      %h5.card-header 料金
+      .card-body
+        %p.card-text= @room.price
+    .card.mb-2
+      -if @room.image.attached?
+        %h5.card-header ルームイメージ
+        .card-body
+          %p.card-text= image_tag @room.image, class: "card-img"
+    .card.mb-2
+      %h5.card-header  貸出人
+      .card-body
+        %p.card-text= "#{@room.owner.name}"
+      
+  
+    .col-4
+      - if @room.created_by?(current_user)
+        = link_to "ルームを編集する", edit_room_path(@room), class: "btn btn-info btn-lg btn-block"
+        = link_to "ルームを削除する", room_path(@room), class: "btn btn-danger btn-lg btn-block", method: :delete, data: { confirm: "本当に削除しますか？" }
+        
+      - if @reservation
+        = link_to "予約をキャンセルする", room_reservation_path(@room, @reservation), method: :delete, class: "btn btn-warning btn-lg btn-block"
+        
+      - elsif logged_in?
+        %button.btn.btn-primary.btn-lg.btn-block{ "data-toggle" => "modal", "data-target" => "#createReservation" }  予約する
+        %div.modal.fade#createReservation
+          .modal-dialog
+            .modal-content
+              .modal-header
+                %h4.modal-title#dialogHeader 予約画面
+                %button.close{ type: "button", "data-dismiss": "modal" } &times;
+              = form_with(model: @room.reservations.build, url: room_reservations_path(@room)) do |f|
+                .modal-body
+                  #createReservationErrors
+                    .form-group
+                      = f.label :start_date
+                      = f.date_field :start_date, class: "form-control"
+                    .form-group
+                      = f.label :end_date
+                      = f.date_field :end_date, class: "form-control"
+                    .form-group
+                      = f.label :person
+                      = f.number_field :person, class: "form-control"
+                      
+                .modal-footer
+                  %button.btn.btn-default{ type: "button", "data-dismiss": "modal" }  キャンセル
+                  = f.button "予約確定", class: "btn btn-primary"
+      - else
+        = link_to "予約する", new_room_reservation_path(@room), class: "btn btn-primary btn-lg btn-block"
+        
+     

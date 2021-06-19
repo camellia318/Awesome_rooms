@@ -1,0 +1,20 @@
+%h1.mt2 ルーム登録
+
+= form_with(model: @room, class: "form-horizontal") do |f|
+  #erros
+  .form_group
+    = f.label :name
+    = f.text_field :name, class: "form-control"
+  .form_group
+    = f.label :adress
+    = f.text_field :adress, class: "form-control"
+  .form_group
+    = f.label :price
+    = f.text_field :price, class: "form-control"
+  .form_group
+    = f.label :description
+    = f.text_field :description, class: "form-control"
+  .form_group
+    = f.label :image
+    = f.file_field :image, class: "form-control-file", direct_upload: true
+  = f.submit class: "btn btn-primary"  

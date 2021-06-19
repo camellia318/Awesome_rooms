@@ -1,0 +1,24 @@
+%h1 ルーム一覧
+
+= search_form_for @q do |f|
+  .form-group.row
+    = f.label :adress_cont, 'エリア', class: "col-sm-2 col-form-label"
+    .col-sm-10
+      = f.search_field :adress_cont, class: "form-control"
+  .form-group.row
+    = f.label :description_cont, 'キーワード', class: "col-sm-2 col-form-label"
+    .col-sm-10
+      = f.search_field :description_cont, class: "form-control"
+  .form-group
+    = f.submit class: "btn btn-outline-primary"
+
+%ul.list-group
+  - @rooms.each do |room|
+    = link_to(room, class: "list-group-item list-group-item-action") do
+      %h5.list-group-item-heading= room.name
+      %p.mb-1= "#{room.adress}"
+      %p.mb-1= "#{room.description}"
+      %p.mb-1= "#{room.price}"
+      
+
+      

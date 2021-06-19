@@ -1,0 +1,27 @@
+%h1.mt-2 ルーム情報編集
+
+= form_with(model: @room, class: "form-horizontal") do |f|
+  #errors
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :adress
+    = f.text_field :adress, class: "form-control"
+  .form-group
+    = f.label :price
+    = f.text_field :price, class: "form-control"  
+  .form-group
+    = f.label :description
+    = f.text_field :description, class: "form-control"
+  .form_group
+    = f.label :image
+    - if @room.image.attached? && @room.image.blob&.persisted?
+      = image_tag(@room.image.variant(resize_to_fit: [200,200]), class: "img-thumbnail d-block mb-3")
+    = f.file_field :image, class: "form-control-file"
+    - if @room.image.attached? && @room.image.blob&.persisted?
+      .checkbox
+        %label
+          = f.check_box :remove_image
+          画像を削除する
+  = f.submit class: "btn btn-primary"  
