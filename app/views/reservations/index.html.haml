@@ -1,0 +1,31 @@
+%h1.mt-3.mb-3 予約情報
+-@reservations.each do |reservation|
+  .card-mb-2
+    %h5.card-header ルーム名
+    .card-body
+      %p.card-text= reservation.room.name
+  .card-mb-2
+    %h5.card-header 予約開始日
+    .card-body
+      %p.card-text= reservation.start_date.strftime('%Y年%m月%d日')
+  .card-mb-2
+    %h5.card-header 予約終了日
+    .card-body 
+      %p.card-text= reservation.end_date.strftime('%Y年%m月%d日')
+  .card-mb-2
+    %h5.card-header 予約人数
+    .card-body 
+      %p.card-text= reservation.person
+  .card-mb-2
+    %h5.card-header 1日あたりのルーム料金（円）
+    .card-body 
+      %p.card-text= reservation.room.price
+  .card-mb-2
+    %h5.card-header 予約日数
+    .card-body 
+      %p.card-text= reservation.number_of_nights    
+  .card-mb-2
+    %h5.card-header 合計金額（円）
+    .card-body 
+      %p.card-text= reservation.total_price
+= paginate @reservations

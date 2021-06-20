@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title AwesomeRooms
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %header.navbar.navbar-fixed-top.navbar-inverse
+      .container
+        = link_to "Awesome Rooms", root_path, id: "logo"
+        %nav
+          %ul.nav.navbar-nav.navbar-right
+            %li= link_to "Home", root_path
+            %li= link_to "ルーム登録", new_room_path
+            %li= link_to "アカウント作成", signup_path
+            %li= link_to "予約情報", reservations_path
+            - if logged_in?
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  アカウント
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to "プロフィール", current_user
+                  %li= link_to "プロフィール登録", edit_user_path(current_user)
+                  %li.divider
+                  %li
+                    = link_to "ログアウト", logout_path, method: :delete
+            - else
+              %li= link_to "ログイン", login_path
+    - flash.each do |message_type, message|
+      = content_tag(:div, message, class: "alert alert-#{message_type}")
+    = yield
+    -#= debug(params) if Rails.env.development?
